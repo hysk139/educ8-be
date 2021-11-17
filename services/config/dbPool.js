@@ -7,7 +7,10 @@ const databaseConfig = new Pool({
   host: process.env.HOST_DB,
   database: process.env.DB_NAME,
   password: process.env.PASSWORD_DB,
-  port: process.env.PORT_DB
+  port: process.env.PORT_DB,
+  ssl: {
+    rejectUnauthorized: false
+  }
 }) 
 
 module.exports = databaseConfig;
