@@ -52,7 +52,7 @@ const getSubjectByUserId = async (req,res) => {
 
 const getSubjectById = async (req,res) => {
   const id = parseInt(req.params.id);
-  const user_id = parseInt(req.params._user_id);
+  const user_id = parseInt(req.params.user_id);
   const query = 'SELECT * FROM subject WHERE subject_id = $1 AND user_id = $2;';
 
   try{
