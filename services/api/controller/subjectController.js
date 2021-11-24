@@ -26,7 +26,7 @@ const getAllSubject = async (req,res) => {
 }
 
 const getSubjectByUserId = async (req,res) => {
-  const user_id = parseInt(req.params._user_id);
+  const user_id = parseInt(req.params.user_id);
   const query = 'SELECT * FROM subject WHERE user_id = $1 ORDER by subject_id;';
 
   try{
