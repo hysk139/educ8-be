@@ -3,11 +3,15 @@ const { errorMessage, successMessage, status } = require('../helper/status');
 
 const editUserById = async (req,res) => {
     
-  const id = parseInt(req.params.id);
-    const query = 'UPDATE users SET email = \'testing@gmail.com\', password = \'testing\', name = \'Ahmad\', phone_number = \'0812121212\'  WHERE user_id = $1 returning *;';
+  const userId = parseInt(req.params.user_id);
+  const email = (req.body.email);
+  const password = (req.body.password);
+  const name = (req.body.name);
+  const phone_number = (req.body.phone_number);
+  const query = 'UPDATE users SET email = $1, password = $2, name = $3, phone_number = $4  WHERE user_id = $5 returning *;';
 
     try{
-        const { rows } = await dbQueries(query, [id]);
+        const { rows } = await dbQueries(query, [email, password, name, phone_number, userId]);
         const dbResponse = rows;
         if (dbResponse[0] === undefined) {
           errorMessage.error = 'There are no users';
