@@ -80,7 +80,7 @@ const addSubject = async (req, res) => {
   /*const brand = (req.body.brand);
   const country = (req.body.country);
   const description = (req.body.description);*/
-  const query = 'INSERT INTO subject(name, user_id) VALUES(\'Rekayasa Perangkat Lunak\', 2);';
+  const query = 'INSERT INTO subject(name, user_id) VALUES(\'DMJ\', 3);';
 
     try {
         const { rows } = await dbQueries(query);

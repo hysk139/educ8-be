@@ -51,13 +51,15 @@ const getUserById = async (req,res) => {
 }
 
 const addUser = async (req, res) => {
-  /*const brand = (req.body.brand);
-  const country = (req.body.country);
-  const description = (req.body.description);*/
-  const query = 'INSERT INTO users(email, password, name, phone_number) VALUES(\'halo@gmail.com\', \'testing\', \'Leonardo Da Vinci\', 081290328008);';
+  const email = (req.body.email);
+  const password = (req.body.password);
+  const name = (req.body.name);
+  const phone_number = (req.body.phone_number);
+  //const query = 'INSERT INTO users(email, password, name, phone_number) VALUES(\'haloo@gmail.com\', \'testing\', \'Da Vinci\', 081290328008);';
+  const query = 'INSERT INTO users(email, password, name, phone_number) VALUES($1, $2, $3, $4);';
 
     try {
-        const { rows } = await dbQueries(query);
+        const { rows } = await dbQueries(query, [email, password, name, phone_number]);
         const dbResponse = rows;
         if (!dbResponse) {
             errorMessage.error = `Cannot add` ;
