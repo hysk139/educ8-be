@@ -26,6 +26,31 @@ const getAllTodoByTopicId = async (req,res) => {
       }
 }
 
+const getAllTodo = async (req,res) => {
+  const topic_id = parseInt(req.params.topic_id);
+  const query = 'SELECT * FROM todo ORDER by todo_id;';
+
+  try{
+      const { rows } = await dbQueries(query, [topic_id]);
+      const dbResponse = rows;
+      if (dbResponse[0] === undefined) {
+        errorMessage.error = 'There are no Todo';
+        return res
+          .status(status.error)
+          .send(errorMessage.error + ' ' + error.code);
+      }
+      successMessage.data = dbResponse;
+      return res  
+        .status(status.success)
+        .send(successMessage.data);
+    } catch (error) {
+      errorMessage.error = 'An error occured.'
+      return res
+        .status(status.error)
+        .send(errorMessage.error + ' ' + error.code);
+    }
+}
+
 const getTodoById = async (req,res) => {
   const topic_id = parseInt(req.params.topic_id);
   const id = parseInt(req.params.id);
@@ -80,6 +105,7 @@ const addTodo = async (req, res) => {
 }
 
 module.exports = {
+    getAllTodo,
     getAllTodoByTopicId,
     getTodoById,
     addTodo
