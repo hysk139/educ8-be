@@ -1,8 +1,9 @@
 const dbQueries = require('../../config/dbQueries');
 const { errorMessage, successMessage, status } = require('../helper/status');
 
-const getAllTopic = async (req,res) => {
-    const query = 'SELECT * FROM topics ORDER by topic_id;';
+const getAllTopicBySubjectId = async (req,res) => {
+    const subject_id = parseInt(req.params.subject_id);
+    const query = 'SELECT * FROM topics ORDER by topic_id WHERE subject_id = $1;';
 
     try{
         const { rows } = await dbQueries(query);
@@ -27,6 +28,7 @@ const getAllTopic = async (req,res) => {
 
 const getTopicById = async (req,res) => {
   const id = parseInt(req.params.id);
+  const subject_id = parseInt(req.params.subject_id);
   const query = 'SELECT * FROM topics WHERE topic_id = $1;';
 
   try{
@@ -78,7 +80,7 @@ const addTopic = async (req, res) => {
 }
 
 module.exports = {
-    getAllTopic,
+    getAllTopicBySubjectId,
     getTopicById,
     addTopic
 }

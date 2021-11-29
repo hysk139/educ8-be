@@ -1,11 +1,12 @@
 const dbQueries = require('../../config/dbQueries');
 const { errorMessage, successMessage, status } = require('../helper/status');
 
-const getAllTodo = async (req,res) => {
-    const query = 'SELECT * FROM todo ORDER by todo_id;';
+const getAllTodoByTopicId = async (req,res) => {
+    const topic_id = parseInt(req.params.topic_id);
+    const query = 'SELECT * FROM todo ORDER by todo_id WHERE topic_id = $1;';
 
     try{
-        const { rows } = await dbQueries(query);
+        const { rows } = await dbQueries(query, [topic_id]);
         const dbResponse = rows;
         if (dbResponse[0] === undefined) {
           errorMessage.error = 'There are no Todo';
@@ -26,6 +27,7 @@ const getAllTodo = async (req,res) => {
 }
 
 const getTodoById = async (req,res) => {
+  const topic_id = parseInt(req.params.topic_id);
   const id = parseInt(req.params.id);
   const query = 'SELECT * FROM todo WHERE todo_id = $1;';
 
@@ -78,7 +80,7 @@ const addTodo = async (req, res) => {
 }
 
 module.exports = {
-    getAllTodo,
+    getAllTodoByTopicId,
     getTodoById,
     addTodo
 }
