@@ -33,11 +33,12 @@ const editUserById = async (req,res) => {
 
 
 const editSubjectById = async (req,res) => {
-  const id = parseInt(req.params.id);
-  const query = 'UPDATE subject SET name = \'DMJ\' WHERE subject_id = $1 returning *;';
+  const subject_id = parseInt(req.params.subject_id);
+  const name = parseInt(req.body.name);
+  const query = 'UPDATE subject SET name = $1 WHERE subject_id = $1 returning *;';
 
   try{
-      const { rows } = await dbQueries(query, [id]);
+      const { rows } = await dbQueries(query, [name, subject_id]);
       const dbResponse = rows;
       if (dbResponse[0] === undefined) {
         errorMessage.error = 'There are no subject';
