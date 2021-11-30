@@ -77,13 +77,12 @@ const getSubjectById = async (req,res) => {
 }
 
 const addSubject = async (req, res) => {
-  /*const brand = (req.body.brand);
-  const country = (req.body.country);
-  const description = (req.body.description);*/
-  const query = 'INSERT INTO subject(name, user_id) VALUES(\'DMJ\', 3);';
+  const name = (req.body.name);
+  const user_id = (req.body.user_id);
+  const query = 'INSERT INTO subject(name, user_id) VALUES($1, $2);';
 
     try {
-        const { rows } = await dbQueries(query);
+        const { rows } = await dbQueries(query, [name, user_id]);
         const dbResponse = rows;
         if (!dbResponse) {
             errorMessage.error = `Cannot add` ;
