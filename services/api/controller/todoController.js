@@ -3,7 +3,7 @@ const { errorMessage, successMessage, status } = require('../helper/status');
 
 const getAllTodoByTopicId = async (req,res) => {
     const topic_id = parseInt(req.params.topic_id);
-    const query = 'SELECT * FROM todo ORDER by todo_id WHERE topic_id = $1;';
+    const query = 'SELECT * FROM todo WHERE topic_id = $1 ORDER by todo_id ;';
 
     try{
         const { rows } = await dbQueries(query, [topic_id]);
@@ -27,11 +27,10 @@ const getAllTodoByTopicId = async (req,res) => {
 }
 
 const getAllTodo = async (req,res) => {
-  const topic_id = parseInt(req.params.topic_id);
   const query = 'SELECT * FROM todo ORDER by todo_id;';
 
   try{
-      const { rows } = await dbQueries(query, [topic_id]);
+      const { rows } = await dbQueries(query);
       const dbResponse = rows;
       if (dbResponse[0] === undefined) {
         errorMessage.error = 'There are no Todo';
@@ -81,7 +80,7 @@ const addTodo = async (req, res) => {
   /*const brand = (req.body.brand);
   const country = (req.body.country);
   const description = (req.body.description);*/
-  const query = 'INSERT INTO todo(title, description, deadline, type, topic_id) VALUES(\'Software Architecture Quiz\', \'Quiz Materi SA\', \'2021-11-18 16:30:00\', \'TEST\', 1);';
+  const query = 'INSERT INTO todo(title, description, deadline, type, topic_id) VALUES(\'Coba coba\', \'Ini percobaan doang\', \'2021-11-18 16:30:00\', \'TEST\', 2);';
 
     try {
         const { rows } = await dbQueries(query);
