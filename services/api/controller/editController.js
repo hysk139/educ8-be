@@ -34,8 +34,8 @@ const editUserById = async (req,res) => {
 
 const editSubjectById = async (req,res) => {
   const subject_id = parseInt(req.params.subject_id);
-  const name = parseInt(req.body.name);
-  const query = 'UPDATE subject SET name = $1 WHERE subject_id = $1 returning *;';
+  const name = (req.body.name);
+  const query = 'UPDATE subject SET name = $1 WHERE subject_id = $2 returning *;';
 
   try{
       const { rows } = await dbQueries(query, [name, subject_id]);
