@@ -27,7 +27,7 @@ const getAllTopic = async (req,res) => {
 
 const getAllTopicBySubjectId = async (req,res) => {
     const subject_id = parseInt(req.params.subject_id);
-    const query = 'SELECT * FROM topics ORDER by topic_id WHERE subject_id = $1;';
+    const query = 'SELECT * FROM topics WHERE subject_id = $1 ORDER by topic_id;';
 
     try{
         const { rows } = await dbQueries(query, [subject_id]);
