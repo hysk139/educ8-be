@@ -80,7 +80,7 @@ const addTopic = async (req, res) => {
   /*const brand = (req.body.brand);
   const country = (req.body.country);
   const description = (req.body.description);*/
-  const query = 'INSERT INTO topics(topic_name, materials, video, subject_id) VALUES(\'Software Architecture\', \'Pada materi ini dibahas SA\', \'https://www.youtube.com/watch?v=dQw4w9WgXcQ\', 1);';
+  const query = 'INSERT INTO topics(topic_name, materials, video, subject_id) VALUES(\'Software Architecture\', \'Pada materi ini dibahas SA\', \'https://www.youtube.com/watch?v=dQw4w9WgXcQ\', 2);';
 
     try {
         const { rows } = await dbQueries(query);
