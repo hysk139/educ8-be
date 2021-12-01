@@ -80,7 +80,7 @@ const addTodo = async (req, res) => {
   /*const brand = (req.body.brand);
   const country = (req.body.country);
   const description = (req.body.description);*/
-  const query = 'INSERT INTO todo(title, description, deadline, type, topic_id) VALUES(\'Coba coba\', \'Ini percobaan doang\', \'2021-11-18 16:30:00\', \'TEST\', 2);';
+  const query = 'INSERT INTO todo(title, description, deadline, type, topic_id) VALUES(\'Coba coba\', \'Ini percobaan doang\', \'2021-11-18 16:30:00\', \'TEST\', 5);';
 
     try {
         const { rows } = await dbQueries(query);

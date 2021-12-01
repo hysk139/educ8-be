@@ -9,7 +9,7 @@ router.put('/update/topics/name/:topic_id', controller.editTopicsNameById);
 router.put('/update/todo/:id', controller.editTodoById);
 router.delete('/delete/users/:id', controller.deleteUsersById);
 router.delete('/delete/subject/:subject_id', controller.deleteSubjectById);
-router.delete('/delete/topics/:id', controller.deleteTopicById);
+router.delete('/delete/topics/:topic_id', controller.deleteTopicById);
 router.delete('/delete/todo/:id', controller.deleteTodoById);
 
 module.exports = router;

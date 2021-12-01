@@ -186,11 +186,11 @@ const deleteSubjectById = async (req,res) => {
 
 
 const deleteTopicById = async (req,res) => {
-  const id = parseInt(req.params.id);
+  const topic_id = parseInt(req.params.topic_id);
   const query = 'DELETE FROM topics WHERE topic_id = $1;';
 
   try{
-      const { rows } = await dbQueries(query , [id]);
+      const { rows } = await dbQueries(query , [topic_id]);
       const dbResponse = rows;
       if (dbResponse[0] === undefined) {
         errorMessage.error = 'There are no topics';
