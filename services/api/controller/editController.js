@@ -60,10 +60,36 @@ const editSubjectById = async (req,res) => {
 
 const editTopicsById = async (req,res) => {
   const id = parseInt(req.params.id);
-  const query = 'UPDATE topics SET topic_name = \'DMJ Meeting 2\', materials = \'Ini meeting kedua\', video = \'youtube.com\' WHERE topic_id = $1 returning *;';
+  const query = 'UPDATE topics SET materials = \'Ini meeting kedua\', video = \'youtube.com\' WHERE topic_id = $1 returning *;';
 
   try{
       const { rows } = await dbQueries(query, [id]);
+      const dbResponse = rows;
+      if (dbResponse[0] === undefined) {
+        errorMessage.error = 'There are no topics';
+        return res
+          .status(status.error)
+          .send(errorMessage.error + ' ' + error.code);
+      }
+      successMessage.data = dbResponse;
+      return res  
+        .status(status.success)
+        .send(successMessage.data);
+    } catch (error) {
+      errorMessage.error = 'An error occured.'
+      return res
+        .status(status.error)
+        .send(errorMessage.error + ' ' + error.code);
+    }
+}
+
+const editTopicsNameById = async (req,res) => {
+  const topic_id = parseInt(req.params.topic_id);
+  const topic_name = (req.body.topic_name);
+  const query = 'UPDATE topics SET topic_name = $1 WHERE topic_id = $2 returning *;';
+
+  try{
+      const { rows } = await dbQueries(query, [topic_name, topic_id]);
       const dbResponse = rows;
       if (dbResponse[0] === undefined) {
         errorMessage.error = 'There are no topics';
@@ -134,11 +160,11 @@ const deleteUsersById = async (req,res) => {
 }
 
 const deleteSubjectById = async (req,res) => {
-  const id = parseInt(req.params.id);
+  const subject_id = parseInt(req.params.subject_id);
   const query = 'DELETE FROM subject WHERE subject_id = $1;';
 
   try{
-      const { rows } = await dbQueries(query, [id]);
+      const { rows } = await dbQueries(query, [subject_id]);
       const dbResponse = rows;
       if (dbResponse[0] === undefined) {
         errorMessage.error = 'There are no subjects';
@@ -216,6 +242,7 @@ module.exports = {
     editUserById,
     editSubjectById,
     editTopicsById,
+    editTopicsNameById,
     editTodoById,
     deleteUsersById,
     deleteSubjectById,
