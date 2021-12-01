@@ -77,13 +77,13 @@ const getTopicById = async (req,res) => {
 }
 
 const addTopic = async (req, res) => {
-  /*const brand = (req.body.brand);
-  const country = (req.body.country);
-  const description = (req.body.description);*/
-  const query = 'INSERT INTO topics(topic_name, materials, video, subject_id) VALUES(\'Software Architecture\', \'Pada materi ini dibahas SA\', \'https://www.youtube.com/watch?v=dQw4w9WgXcQ\', 2);';
+
+  const topic_name = (req.body.topic_name);
+  const subject_id = (req.body.subject_id);
+  const query = 'INSERT INTO topics(topic_name, subject_id) VALUES($1, $2);';
 
     try {
-        const { rows } = await dbQueries(query);
+        const { rows } = await dbQueries(query,[topic_name, subject_id] );
         const dbResponse = rows;
         if (!dbResponse) {
             errorMessage.error = `Cannot add` ;
