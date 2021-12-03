@@ -58,12 +58,39 @@ const editSubjectById = async (req,res) => {
     }
 }
 
-const editTopicsById = async (req,res) => {
-  const id = parseInt(req.params.id);
-  const query = 'UPDATE topics SET materials = \'Ini meeting kedua\', video = \'youtube.com\' WHERE topic_id = $1 returning *;';
+const editTopicsMaterialsById = async (req,res) => {
+  const topic_id = parseInt(req.params.topic_id);
+  const materials = (req.body.materials);
+  const query = 'UPDATE topics SET materials = $1 WHERE topic_id = $2 returning *;';
 
   try{
-      const { rows } = await dbQueries(query, [id]);
+      const { rows } = await dbQueries(query, [materials, topic_id]);
+      const dbResponse = rows;
+      if (dbResponse[0] === undefined) {
+        errorMessage.error = 'There are no topics';
+        return res
+          .status(status.error)
+          .send(errorMessage.error + ' ' + error.code);
+      }
+      successMessage.data = dbResponse;
+      return res  
+        .status(status.success)
+        .send(successMessage.data);
+    } catch (error) {
+      errorMessage.error = 'An error occured.'
+      return res
+        .status(status.error)
+        .send(errorMessage.error + ' ' + error.code);
+    }
+}
+
+const editTopicsVideosById = async (req,res) => {
+  const topic_id = parseInt(req.params.topic_id);
+  const video = (req.body.video);
+  const query = 'UPDATE topics SET video = $1 WHERE topic_id = $2 returning *;';
+
+  try{
+      const { rows } = await dbQueries(query, [video, topic_id]);
       const dbResponse = rows;
       if (dbResponse[0] === undefined) {
         errorMessage.error = 'There are no topics';
@@ -241,7 +268,8 @@ const deleteTodoById = async (req,res) => {
 module.exports = {
     editUserById,
     editSubjectById,
-    editTopicsById,
+    editTopicsMaterialsById,
+    editTopicsVideosById,
     editTopicsNameById,
     editTodoById,
     deleteUsersById,
