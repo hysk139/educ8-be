@@ -77,13 +77,14 @@ const getTodoById = async (req,res) => {
 }
 
 const addTodo = async (req, res) => {
-  /*const brand = (req.body.brand);
-  const country = (req.body.country);
-  const description = (req.body.description);*/
-  const query = 'INSERT INTO todo(title, description, deadline, type, topic_id) VALUES(\'Coba coba\', \'Ini percobaan doang\', \'2021-11-18 16:30:00\', \'TEST\', 8);';
+  const title = (req.body.title);
+  const description = (req.body.description);
+  const type = (req.body.type);
+  const topic_id = (req.body.topic_id);
+  const query = 'INSERT INTO todo(title, description, deadline, type, topic_id) VALUES($1, $2, \'2021-11-18 16:30:00\', $3, $4);';
 
     try {
-        const { rows } = await dbQueries(query);
+        const { rows } = await dbQueries(query, [title, description, type, topic_id]);
         const dbResponse = rows;
         if (!dbResponse) {
             errorMessage.error = `Cannot add` ;
