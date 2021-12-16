@@ -85,7 +85,7 @@ const addTodo = async (req, res) => {
   const query = 'INSERT INTO todo(title, description, deadline, type, topic_id) VALUES($1, $2, $3, $4, $5);';
 
     try {
-        const { rows } = await dbQueries(query, [title, description, deadline, type, topic_id]);
+        const { rows } = await dbQueries(query, [title, description, type, topic_id]);
         const dbResponse = rows;
         if (!dbResponse) {
             errorMessage.error = `Cannot add` ;
